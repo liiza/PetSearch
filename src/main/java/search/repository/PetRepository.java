@@ -8,4 +8,5 @@ import java.util.List;
 public interface PetRepository extends ElasticsearchRepository<Pet, String> {
 
     List<Pet> findByAnimalContaining(String animal);
+
 }

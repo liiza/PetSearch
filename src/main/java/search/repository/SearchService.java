@@ -1,0 +1,36 @@
+package search.repository;
+
+
+import org.elasticsearch.index.query.MultiMatchQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.index.search.MultiMatchQuery;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class SearchService {
+
+    @Autowired
+    private PetRepository petRepository;
+
+    public List<Pet> search(String term) {
+        MultiMatchQueryBuilder query = QueryBuilders.multiMatchQuery(term)
+                .field("animal")
+                .field("name")
+                .field("size")
+                .field("sex")
+                .field("age");
+        Iterable<Pet> pets =  petRepository.search(query);
+        return toList(pets);
+    }
+
+    private List<Pet> toList(Iterable<Pet> pets) {
+        List<Pet> petList = new ArrayList<Pet>();
+        for(Pet pet: pets) {
+            petList.add(pet);
+        }
+        return petList;
+
+    }
+}
