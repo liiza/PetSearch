@@ -10,10 +10,11 @@
 <div class="container">
     <div class="search-form">
         <h1>Pet search</h1>
-        <p>Search for pets for adoption in California</p>
+        <p>Search for pets for adoption in California area</p>
         <div ng-controller="home" ng-cloak >
         <input type="text" ng-model="query" />
         <div class="search-results">
+            <div ng-show="results.length === 0 && query"> No results with given query {{query}}</div>
             <div ng-repeat="result in results">
                 <a ng-href="{{result.url}}">{{result.name}}</a>
                 <br/>
