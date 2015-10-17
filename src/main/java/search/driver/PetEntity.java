@@ -2,11 +2,21 @@ package search.driver;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import search.repository.Pet;
+
+import java.util.List;
+import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PetEntity {
+
+    @JsonProperty
+    private EntityObject id;
 
     @JsonProperty("animal")
     private EntityObject animal;
@@ -14,22 +24,26 @@ public class PetEntity {
     @JsonProperty
     private EntityObject  name;
 
-    private EntityObject  breed;
+    @JsonProperty
+    private BreedList breeds;
 
     @JsonProperty
-    private EntityObject  size;
+    private EntityObject size;
 
     @JsonProperty
-    private EntityObject  sex;
+    private EntityObject sex;
 
     @JsonProperty
-    private EntityObject  location;
+    private EntityObject location;
 
     @JsonProperty
-    private EntityObject  shelterId;
+    private EntityObject shelterId;
 
     @JsonProperty
     private EntityObject age;
+
+    @JsonProperty
+    private EntityObject description;
 
     public EntityObject getAnimal() {
         return animal;
@@ -47,13 +61,7 @@ public class PetEntity {
         this.name = name;
     }
 
-    public EntityObject getBreed() {
-        return breed;
-    }
 
-    public void setBreed(EntityObject breed) {
-        this.breed = breed;
-    }
 
     public EntityObject getSize() {
         return size;
@@ -94,8 +102,34 @@ public class PetEntity {
     public void setAge(EntityObject age) {
         this.age = age;
     }
+
+    public EntityObject getDescription() {
+        return description;
+    }
+
+    public void setDescription(EntityObject description) {
+        this.description = description;
+    }
+
+    public EntityObject getId() {
+        return id;
+    }
+
+    public void setId(EntityObject id) {
+        this.id = id;
+    }
+
+    public BreedList getBreeds() {
+        return breeds;
+    }
+
+    public void setBreeds(BreedList breeds) {
+        this.breeds = breeds;
+    }
+
     @JsonIgnoreProperties(ignoreUnknown = true)
     public class EntityObject {
+
         @JsonProperty ("$t")
         private String value;
 
@@ -108,6 +142,33 @@ public class PetEntity {
         }
 
     }
+
+    public static class BreedList {
+
+        @JsonDeserialize(using = BreedDeserializer.class)
+        private List<Breed> breed;
+
+        public List<Breed> getBreed() {
+            return breed;
+        }
+    }
+
+    public static class Breed {
+
+        @JsonProperty("$t")
+        private String breed;
+
+        public String getBreed() {
+            return breed;
+        }
+
+        public void setBreed(String breed) {
+            this.breed = breed;
+        }
+
+    }
+
+
 
 
 }

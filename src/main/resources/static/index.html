@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-    <title>Hello AngularJS</title>
+    <title>Pet search</title>
     <link href="css/angular-bootstrap.css" rel="stylesheet">
 </head>
 
@@ -13,7 +13,7 @@
         <a ng-click="sendMessage()">Click here!</a>
         <ul>
             <li ng-repeat="result in results">
-                {{result.name}}
+                <a ng-href="{{result.url}}">{{result.name}}</a>
             </li>
         </ul>
     </div>

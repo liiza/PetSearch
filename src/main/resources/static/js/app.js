@@ -3,7 +3,7 @@ var app = angular.module('hello', []);
 app.controller('home', function($scope, httpService) {
     $scope.results = [];
 
-    function setGreeting(response) {
+    function setResults(response) {
         $scope.results = response.data;
         for (var i= 0; i < $scope.results.length; i++){
             console.log($scope.results[i]);
@@ -11,7 +11,7 @@ app.controller('home', function($scope, httpService) {
     }
     $scope.sendMessage = function(){
         console.log($scope.query)
-        httpService.doQuery($scope.query, setGreeting);
+        httpService.doQuery($scope.query, setResults);
     }
 });
 

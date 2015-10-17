@@ -30,6 +30,12 @@ public class SearchDriver extends RestTemplate{
 
     private static final String count = "&count=10";
 
+    private static final String output = "&output=full";
+
+    private static final String detailsBaseUrl = "https://www.petfinder.com";
+
+    private static final String petDetails = "/petdetail/";
+
     private String apiKey;
 
 
@@ -39,11 +45,12 @@ public class SearchDriver extends RestTemplate{
 
     @PostConstruct
     public void fetchResults(){
-        String urlGetObjects = baseUrl + method + format + key + apiKey + location + count;
+        String urlGetObjects = baseUrl + method + format + key + apiKey + location + count + output;
         System.out.println("Url where trying to fetch the objects " + urlGetObjects);
-        PetList pets = getForObject(urlGetObjects, PetList.class);
         String output = getForObject(urlGetObjects, String.class);
         System.out.println(output);
+        PetList pets = getForObject(urlGetObjects, PetList.class);
+
         if (pets != null && pets.getPetfinder() != null && pets.getPetfinder().getPets().getPet() != null) {
             List<Pet> petsToIndex = pets.getPetfinder()
                     .getPets()
@@ -56,16 +63,48 @@ public class SearchDriver extends RestTemplate{
 
 
     }
-    private static Pet mapToIndex(PetEntity pet){
-        return new Pet (pet.getName().getValue(),
-                pet.getAge().getValue(),
-                pet.getAnimal().getValue(),
-                null,
-                pet.getSex().getValue(),
-                pet.getShelterId().getValue(),
-                pet.getSize().getValue(),
-                null);
+    private static Pet mapToIndex(PetEntity petRaw){
+        Pet pet = new Pet();
+        if  (petRaw.getName() != null){
+            pet.setName(petRaw.getName().getValue());
+        }
+        if  (petRaw.getAge() != null){
+            pet.setAge(petRaw.getAge().getValue());
+        }
+        if  (petRaw.getAnimal() != null){
+            pet.setAnimal(petRaw.getAnimal().getValue());
+        }
+        if  (petRaw.getBreeds() != null && petRaw.getBreeds().getBreed().size() >0){
+            pet.setBreed(toList(petRaw.getBreeds().getBreed()));
+        }
+        if  (petRaw.getSex() != null){
+            pet.setSex(petRaw.getSex().getValue());
+        }
+        if  (petRaw.getShelterId() != null) {
+            pet.setShelterId(petRaw.getShelterId().getValue());
+        }
+        if  (petRaw.getSize() != null) {
+            pet.setSize(petRaw.getSize().getValue());
+        }
+        if (petRaw.getDescription() != null){
+            pet.setDescription(petRaw.getDescription().getValue());
+        }
+        if (petRaw.getId() != null){
+            pet.setUrl(buildUrlFromId(petRaw.getId().getValue()));
+        }
+        return pet;
+    }
 
+    private static String toList(List<PetEntity.Breed> breeds) {
+        String breedList = "";
+        for(PetEntity.Breed breed: breeds) {
+            breedList += breed.getBreed() + " ";
+        }
+        return breedList;
+    }
+
+    private static String buildUrlFromId(String id) {
+        return detailsBaseUrl + petDetails + id;
     }
 
 }

@@ -55,7 +55,6 @@ public class PetList {
             @JsonProperty("pet")
             private List<PetEntity> pet;
 
-
             public List<PetEntity> getPet() {
                 return pet;
             }

@@ -27,20 +27,15 @@ public class Pet {
 
     private String age;
 
+    private String description;
+
+    private String url;
+
     public Pet (){
         // For Spring
     }
 
-    public Pet(String name, String age, String animal, String breed, String sex, String shelterId, String size, String location) {
-        this.name = name;
-        this.age = age;
-        this.animal = animal;
-        this.breed = breed;
-        this.sex = sex;
-        this.shelterId = shelterId;
-        this.size = size;
-        this.location = location;
-    }
+
 
 
     public String getAnimal() {
@@ -113,5 +108,21 @@ public class Pet {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getUrl() {
+        return url;
     }
 }

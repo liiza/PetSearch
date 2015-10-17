@@ -22,8 +22,9 @@ public class SearchService {
                 .field("size")
                 .field("sex")
                 .field("age")
-                .operator(MatchQueryBuilder.Operator.AND);
-        Iterable<Pet> pets =  petRepository.search(query);
+                .field("description")
+                .field("breed");
+        Iterable<Pet> pets = petRepository.search(query);
         return toList(pets);
     }
 
