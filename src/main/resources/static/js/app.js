@@ -1,4 +1,4 @@
-var app = angular.module('hello', []);
+var app = angular.module('app', []);
 
 app.controller('home', function($scope, httpService) {
     $scope.results = [];
@@ -9,10 +9,17 @@ app.controller('home', function($scope, httpService) {
             console.log($scope.results[i]);
         }
     }
-    $scope.sendMessage = function(){
-        console.log($scope.query)
-        httpService.doQuery($scope.query, setResults);
+    function doQuery(){
+        if ($scope.query) {
+            console.log($scope.query)
+            httpService.doQuery($scope.query, setResults);
+        }
     }
+    $scope.$watch("query", function() {
+        doQuery();
+    }, true);
+
+
 });
 
 app.factory('httpService', function($http){
