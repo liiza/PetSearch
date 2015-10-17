@@ -1,6 +1,7 @@
 package search.repository;
 
 
+import org.elasticsearch.index.query.MatchQueryBuilder;
 import org.elasticsearch.index.query.MultiMatchQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.search.MultiMatchQuery;
@@ -20,7 +21,8 @@ public class SearchService {
                 .field("name")
                 .field("size")
                 .field("sex")
-                .field("age");
+                .field("age")
+                .operator(MatchQueryBuilder.Operator.AND);
         Iterable<Pet> pets =  petRepository.search(query);
         return toList(pets);
     }

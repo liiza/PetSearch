@@ -11,6 +11,11 @@
     <div ng-controller="home" ng-cloak class="ng-cloak">
         <input type="text" ng-model="query" />
         <a ng-click="sendMessage()">Click here!</a>
+        <ul>
+            <li ng-repeat="result in results">
+                {{result.name}}
+            </li>
+        </ul>
     </div>
 </div>
 <script src="js/angular-bootstrap.js" type="text/javascript"></script>

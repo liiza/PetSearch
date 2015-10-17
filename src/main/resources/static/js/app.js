@@ -1,11 +1,12 @@
 var app = angular.module('hello', []);
 
 app.controller('home', function($scope, httpService) {
+    $scope.results = [];
 
     function setGreeting(response) {
-        var results = response.data;
-        for (var i= 0; i < results.length; i++){
-            console.log(results[i]);
+        $scope.results = response.data;
+        for (var i= 0; i < $scope.results.length; i++){
+            console.log($scope.results[i]);
         }
     }
     $scope.sendMessage = function(){
