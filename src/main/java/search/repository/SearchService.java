@@ -17,13 +17,15 @@ public class SearchService {
 
     public List<Pet> search(String term) {
         MultiMatchQueryBuilder query = QueryBuilders.multiMatchQuery(term)
+                .type(MultiMatchQueryBuilder.Type.CROSS_FIELDS)
                 .field("animal")
                 .field("name")
                 .field("size")
                 .field("sex")
                 .field("age")
                 .field("description")
-                .field("breed");
+                .field("breed")
+                .operator(MatchQueryBuilder.Operator.AND);
         Iterable<Pet> pets = petRepository.search(query);
         return toList(pets);
     }
