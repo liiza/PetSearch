@@ -31,6 +31,7 @@ body {
 
 .search-results div{
     padding: 20px 0;
+    border-bottom: solid 1px;
 }
 
 .search-results a {

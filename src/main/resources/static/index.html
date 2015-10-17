@@ -16,7 +16,10 @@
         <div class="search-results">
             <div ng-repeat="result in results">
                 <a ng-href="{{result.url}}">{{result.name}}</a>
+                <br/>
                 {{result.animal}} {{result.breed}} {{result.age}} {{result.sex}}
+                <br/>
+                {{result.description}}
             </div>
         </div>
 
