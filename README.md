@@ -20,4 +20,4 @@ https://pacific-temple-7389.herokuapp.com/
 
 
 
-![screenshot] (./screenshots/search.png)
+![screenshot](./screenshots/search.png)
